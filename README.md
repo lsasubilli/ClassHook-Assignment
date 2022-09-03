@@ -14,11 +14,13 @@ How does this program work?
 You can copy this link:http://sasubillis.pythonanywhere.com/emails and paste it in the Postman.
 
 Use the following JSON Payload:
+```
 {
     "to": "someemail@someexample.com",
     "subject": "whats up",
     "body": "hi!"
 }
+```
 
 Make sure to use the POST Method. It should look something similar to this: 
 
