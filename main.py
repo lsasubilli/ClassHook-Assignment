@@ -38,16 +38,15 @@ def process_json():
             print ("ErrorType : {}, Error : {}".format(type(e).__name__, e))
             smtp_ssl = None
 
-        resp_code, response = smtp_ssl.login(user="sasubillis@yahoo.com", password="---")
+        resp_code, response = smtp_ssl.login(user="sasubillis@yahoo.com", password="xxx")
 
         frm = "sasubillis@yahoo.com"
         to_list.append(to_str)
         message = "Subject: {}\n\n{}".format(subject_str, body_str)
 
-
         response = smtp_ssl.sendmail(from_addr=frm, to_addrs=to_list, msg=message)
 
-        return "Sent email as per payload"+response
+        return "Sent email as per payload"
     else:
         return "Content-Type not supported...!"
 
