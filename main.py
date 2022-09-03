@@ -1,64 +1,56 @@
+import smtplib
+import time
 from flask import Flask, request
 
 app = Flask(__name__)
 
 
-@app.route('/')
-def hello():
-    return 'Helllloooo Woorrrllldd!'
+@app.route("/")
+def hello_world():
+    return "Hello World"
 
 
+@app.route("/emails", methods=["POST", "GET"])
+def process_json():
+    content_type = request.headers.get("Content-Type")
+    if content_type == "application/json":
 
-@app.route('/name')
-def returnName():
-  return 'Lalith'
+        records = request.get_json()
 
-@app.route("/address")
-def returnAddress():
-  return '4405 Valley Avenue, Pleasanton, California'
+        to_str = ""
+        subject_str = ""
+        body_str = ""
+        to_list = []
 
-@app.route('/query_example')
-def query_example():
-  language = request.args.get('language')
-  framework = request.args['framework']
-  website = request.args.get('website')
-  return '''<h1>The language is : {}</h1>
-  <h1>The framework is {} </h1> 
-  <h1>The website is {}</h1>'''.format(language, framework, website)
+        for r in records:
+            # print(records[r])
+            if r == "to":
+                to_str = records[r]
+            if r == "subject":
+                subject_str = records[r]
+            if r == "body":
+                body_str = records[r]
 
-@app.route('/json_example',methods=['POST'])
-def json_example():
-  req_data = request.get_json()
+        print ("Now trying to send an email")
+        try:
+            smtp_ssl = smtplib.SMTP_SSL(host="smtp.mail.yahoo.com", port=465)
+        except Exception as e:
+            #print ("Error with smtp ssl connection")'
+            print ("ErrorType : {}, Error : {}".format(type(e).__name__, e))
+            smtp_ssl = None
 
-  language = req_data['language']
-  framework = req_data['framework']
-  python_version = req_data['version_info']['python']
-  example = req_data['examples'][0]
-  boolean_test = req_data['boolean_test']
+        resp_code, response = smtp_ssl.login(user="sasubillis@yahoo.com", password="THE PASSWORD IS NOT SAFE TO PROVIDE IT HERE!")
 
-  return '''<h1>
-    The language value is {}.
-    The framework value is {}.
-    The python version is {}.
-    The example at 0 index is {}.
-    The boolean value is {}.
-    </h1>'''.format(language, framework, python_version, example, boolean_test)
+        frm = "sasubillis@yahoo.com"
+        to_list.append(to_str)
+        message = "Subject: {}\n\n{}".format(subject_str, body_str)
 
+        response = smtp_ssl.sendmail(from_addr=frm, to_addrs=to_list, msg=message)
 
-@app.route('/emails',methods=['POST'])
-def emails():
-  req_data = request.get_json()
-  to = req_data['to']
-  subject = req_data['subject']
-  body = req_data['body']
+        return "Sent email as per payload"
+    else:
+        return "Content-Type not supported...!"
 
-  return '''
-  The to value is {}.
-  The subject value is {}.
-  The body is {}.
-  
-  '''.format(to,subject,body)
 
 if __name__ == "__main__":
-  app.run()
-
+    app.run(host="0.0.0.0", port=6000)
