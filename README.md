@@ -21,7 +21,9 @@ Use the following JSON Payload:
 }
 
 Make sure to use the POST Method. It should look something similar to this: 
-![Screen Shot 2022-09-03 at 3 06 09 PM](https://user-images.githubusercontent.com/68266855/188289006-697b391d-a3bf-4ced-99bc-23dcd5e8f033.png)
+
+![Screen Shot 2022-09-03 at 3 27 34 PM](https://user-images.githubusercontent.com/68266855/188289439-b616a983-ebcd-4236-b904-566850544954.png)
+
 Once you hit send, it should say this in the console: "Sent email as per payload"
 
 
