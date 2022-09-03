@@ -15,7 +15,7 @@ You can copy this link:http://sasubillis.pythonanywhere.com/emails and paste it 
 
 Use the following JSON Payload:
 {
-    "to": "someemail",
+    "to": "someemail@someexample.com",
     "subject": "whats up",
     "body": "hi!"
 }
@@ -36,8 +36,7 @@ HTTP Methods I used throughout this assignment:
 GET - less secure way but used a lot
 POST - secure way but used less in the real world
 
-
-SMTP address I used:
+SMTP server I used:
 smtp.mail.yahoo.com
 
 
