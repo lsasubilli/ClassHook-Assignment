@@ -1,5 +1,4 @@
 import smtplib
-import time
 from flask import Flask, request
 
 app = Flask(__name__)
@@ -16,7 +15,7 @@ def process_json():
     if content_type == "application/json":
 
         records = request.get_json()
-
+        #initialize variables
         to_str = ""
         subject_str = ""
         body_str = ""
@@ -39,15 +38,16 @@ def process_json():
             print ("ErrorType : {}, Error : {}".format(type(e).__name__, e))
             smtp_ssl = None
 
-        resp_code, response = smtp_ssl.login(user="sasubillis@yahoo.com", password="THE PASSWORD IS NOT SAFE TO PROVIDE IT HERE!")
+        resp_code, response = smtp_ssl.login(user="sasubillis@yahoo.com", password="---")
 
         frm = "sasubillis@yahoo.com"
         to_list.append(to_str)
         message = "Subject: {}\n\n{}".format(subject_str, body_str)
 
+
         response = smtp_ssl.sendmail(from_addr=frm, to_addrs=to_list, msg=message)
 
-        return "Sent email as per payload"
+        return "Sent email as per payload"+response
     else:
         return "Content-Type not supported...!"
 
