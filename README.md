@@ -26,6 +26,16 @@ Make sure to use the POST Method. It should look something similar to this:
 
 Once you hit send, it should say this in the console: "Sent email as per payload"
 
+You can also test this using a curl command:\
+```
+curl -H "Content-Type: application/json" \
+  -X POST \
+  -d '{"to":"someemail@mail.com","subject":"whats up","body":"hi"}' \
+ http://sasubillis.pythonanywhere.com/emails
+ ```
+
+
+
 
 Libraries, other things I used throughout this assignment:
 smtplib - built in with python and is the library used for sending mails using SMTP.
